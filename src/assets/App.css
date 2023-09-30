@@ -1,0 +1,50 @@
+*,*::before,*::after{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+header{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background: url('./Images/Kaaba-Background.jpg')
+}
+.background-Tint{
+    background: rgba(0, 0, 0, 0.8);
+}
+/*Navigation Bar */
+.Nav-Container{
+    padding: 1em 0;
+    display: flex;
+    gap: 15%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.Nav-Logo img{
+    width:5em;
+}
+.Nav-Links{
+    display: flex;
+    gap: 4em;
+}
+.Nav-Buttons a, .Nav-Links a{
+    text-decoration: none;
+    color: white;
+
+    font-size: 1.2rem;
+}
+.Nav-Links a{
+    
+}
+.Nav-Buttons a{
+    border: 2px solid white;
+    padding: 0.3em 1.5em;
+    border-radius: 25px;
+
+}
+/*Navigation Bar */
+/* Home Page */
+.HomePage-Front{
+    min-height: 100vh;
+    
+}
+/* Home Page */
