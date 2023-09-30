@@ -9,13 +9,13 @@ export const Navbar = () => {
         </section>
         <section className='Nav-Links'>
             <NavLink to={'/'}>Home</NavLink>
-            <NavLink to={'/'}>Prayer Times</NavLink>
-            <NavLink to={'/'}>Holy Quran</NavLink>
-            <NavLink to={'/'}>Islamic Calendar</NavLink>
-            <NavLink to={'/'}>About</NavLink>
+            <NavLink to={'/timing'}>Prayer Times</NavLink>
+            <NavLink to={'/quran'}>Holy Quran</NavLink>
+            <NavLink to={'/calendar'}>Islamic Calendar</NavLink>
+            <NavLink to={'/about'}>About</NavLink>
         </section>
         <section className='Nav-Buttons'>
-            <NavLink to={'/'}>Login</NavLink>
+            <NavLink to={'/login'}>Login</NavLink>
         </section>
 
     </nav>
