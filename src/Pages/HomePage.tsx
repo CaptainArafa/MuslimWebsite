@@ -6,7 +6,7 @@ import { Card } from "../Database/IconCardDatabase"
 export const HomePage = () => {
   return (
     <>
-    <header>
+    <header className="HomePage-Header">
     <Navbar />
     <section className="HomePage-Front">
         <h1>assalamu alaikum</h1>

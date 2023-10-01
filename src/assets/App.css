@@ -5,8 +5,9 @@
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
-header{
+.HomePage-Header, .BackgroundImg{
     height:100vh;
+    background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgb(82, 71, 161);
@@ -107,7 +108,6 @@ header{
 /* Home Page */
 /*More Info */
 .MoreInfo-Container-Inner{
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,3 +123,83 @@ header{
     font-size: 1.5rem;
 }
 /*More Info */
+/*Prayer Times */
+
+
+.PrayerTimesBackground{
+    background: hsla(41, 100%, 69%, 1);
+    background: hsla(41, 100%, 69%, 1);
+    background: linear-gradient(180deg, hsla(41, 100%, 69%, 1) 25%, hsla(14, 83%, 60%, 1) 68%, hsla(14, 83%, 60%, 1) 92%);
+    background: -moz-linear-gradient(180deg, hsla(41, 100%, 69%, 1) 25%, hsla(14, 83%, 60%, 1) 68%, hsla(14, 83%, 60%, 1) 92%);
+    background: -webkit-linear-gradient(180deg, hsla(41, 100%, 69%, 1) 25%, hsla(14, 83%, 60%, 1) 68%, hsla(14, 83%, 60%, 1) 92%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FFCE61", endColorstr="#EE6C45", GradientType=1 );
+    width:40%;
+    height: 13vh;
+    margin: 0 auto;
+    border-radius: 50px;
+    display: flex;
+    padding-left: 5em;
+    position: relative;
+}
+.PrayerTimesBackground img{
+    width: 15em;
+    bottom: -2.5em;
+    right: 0;
+    position: absolute;
+}
+.PrayerTimesBackground-Timing{
+    display: flex;
+    color: #c13106;
+    font-size: 1.2rem;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.PrayerTimesBackground-Timing p{
+    font-size: 2.5rem;
+    font-weight: bold;
+
+}
+.PrayerTimes-Times{
+    background-color:#c6ceee;
+    width:40%;
+    color: #25336d;
+    margin: 3em auto 0 auto;
+
+    border-radius: 50px;
+}
+.PrayerTimes-Prayer{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1.8em 2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    transition: 200ms ease-in-out;
+}
+.PrayerTimes-Prayer:hover{
+    background-color: #25336d;
+    color: #c6ceee;
+}
+.PrayerTimes-Prayer:last-child{
+    border: none;
+}
+.PrayerTimes-Location{
+    background-color: #25336d;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    color:#c6ceee;
+    font-size: 1.2rem;
+    padding: 0.5em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+.PrayerTimes-Location svg{
+    cursor: pointer;
+}
+.BackgroundImg{
+    background-color: white;
+}
+/*Prayer Times */

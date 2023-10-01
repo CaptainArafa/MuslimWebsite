@@ -1,9 +1,10 @@
 import { IconCardType } from "../Types"
+import { FaPersonPraying, FaBookQuran, FaCalendar } from "react-icons/fa6";
 
-const IconCard = ({name, img,heading}:IconCardType) => {
+const IconCard = ({id,heading}:IconCardType) => {
   return (
     <div className="IconCard-Container">
-        <img src={img} alt={name} />
+        <div>{id===1? <FaPersonPraying/>:id===2?<FaBookQuran size={150}/>:<FaCalendar />}</div>
         <h3>{heading}</h3>
     </div>
   )
