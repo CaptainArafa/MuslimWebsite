@@ -1,4 +1,4 @@
-import logo from '../assets/Images/mosque-logo.webp'
+import logo from '../assets/Images/Logo/Website-Logo-White.png'
 import {NavLink} from 'react-router-dom'
 export const Navbar = () => {
   return (
