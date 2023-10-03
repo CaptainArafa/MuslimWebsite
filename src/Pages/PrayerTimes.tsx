@@ -15,27 +15,30 @@ export const PrayerTimes = () => {
     const [nextPrayer,setNextPrayer] = useState(0)
     const [isloading,setIsloading] = useState(true)
     useEffect(()=>{
-      
-        axios.get('http://api.aladhan.com/v1/calendarByCity/2023/10?city=Cairo&country=Egypt&method=2')
-        .then((response)=>{
-            setData(response.data.data[0].timings)
-            let PrayersNames = []
-            let PrayersTimes = []
+      const PrayerDataFunc = async () => {  
+        const response = await axios.get('http://api.aladhan.com/v1/calendarByCity/2023/10?city=Cairo&country=Egypt&method=2')
+
+        setData(response.data.data[0].timings)
+        let PrayersNames = []
+        let PrayersTimes = []
 for (const key in response.data.data[0].timings){
-    if(key==='Fajr' ||key==="Sunrise" || key==='Dhuhr' || key==='Asr' || key==="Maghrib" || key==="Isha"){
-        PrayersTimes.push(response.data.data[0].timings[key].split(' ')[0])
-        PrayersNames.push(key)
-        setPrayerTiming(PrayersTimes)
-        setPrayerNames(PrayersNames)
-        
-        console.log(prayerNames)
-    }
-   
+if(key==='Fajr' ||key==="Sunrise" || key==='Dhuhr' || key==='Asr' || key==="Maghrib" || key==="Isha"){
+    PrayersTimes.push(response.data.data[0].timings[key].split(' ')[0])
+    PrayersNames.push(key)
+    setPrayerTiming(PrayersTimes)
+    setPrayerNames(PrayersNames)
+    
+    console.log(prayerNames)
+}
+
 };
-setIsloading(false)
+
 console.log(prayerNames)
 NextPrayerFunc(prayerTiming)
-        })
+setIsloading(false)
+      }
+      PrayerDataFunc()
+      
     },[])
 
 
@@ -69,7 +72,7 @@ NextPrayerFunc(prayerTiming)
     // }
 
 
-const NextPrayerFunc = (prayerTiming:any) =>{
+const NextPrayerFunc =(prayerTiming:any) =>{
     //Function that determines when is the next closest Prayer
     let TimeRemaining= 0
     let now = new Date()
@@ -81,7 +84,7 @@ const NextPrayerFunc = (prayerTiming:any) =>{
     //Loops over the prayer times in a string format ex: 16:47
     //Then turns the first two characters into numbers and stores them as Hours
     // and does the same thing with minutes
-    prayerTiming.map((time:string)=>{
+  prayerTiming.map((time:string)=>{
       Hours = Number(time.slice(0,2))
       Minutes = Number(time.slice(3,4))
         TotalinMinutes = (Hours * 60) + Minutes
@@ -104,7 +107,7 @@ const NextPrayerFunc = (prayerTiming:any) =>{
     Minutes = Number(ComparisonArray[0].slice(3,5))
       TotalinMinutes = (Hours * 60) + Minutes
       //converting Time remaining to Milliseconds
-      TimeRemaining = (TotalinMinutes-TotalinMinutesNow) *6000
+      TimeRemaining = (TotalinMinutes-TotalinMinutesNow) *60000
       
     setNextPrayer(TimeRemaining)
     console.log(nextPrayer)
@@ -112,7 +115,7 @@ const NextPrayerFunc = (prayerTiming:any) =>{
 }
 
 
-
+    if(!isloading){
   return (
     <>
     <div className="BackgroundImg">
@@ -123,7 +126,7 @@ const NextPrayerFunc = (prayerTiming:any) =>{
     <div className="PrayerTimesBackground">
             <div className="PrayerTimesBackground-Timing">
                 <h2>Next Prayer Maghrib</h2>
-                <p><Countdown autoStart={true} date={ Date.now()+nextPrayer} /></p>
+                <p><Countdown zeroPadTime={0} autoStart={true} date={ Date.now()+nextPrayer }/></p>
 
             </div>
             <img src={masjid} alt="Masjid Background" />
@@ -147,5 +150,6 @@ const NextPrayerFunc = (prayerTiming:any) =>{
     </>
   
   )
+        }
 }
 
