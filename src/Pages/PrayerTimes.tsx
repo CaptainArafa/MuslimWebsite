@@ -1,24 +1,29 @@
-import { useEffect,useState } from "react";
+import { useEffect,useState, useMemo } from "react";
 import { Navbar } from "../Components/Navbar"
 import masjid from '../assets/Images/background/masjid.svg'
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import axios from "axios";
 import Countdown from 'react-countdown';
+import countryList from 'react-select-country-list'
+import Select from 'react-select'
 
 export const PrayerTimes = () => {
-    // const [minutes,setMinutes] = useState(0)
-    // const [hours,setHours] = useState(0)
-    // const [seconds,setSeconds] = useState(0)
-    const [data,setData] = useState({})
+    
     const [prayerTiming,setPrayerTiming] = useState([] as string[])
     const [prayerNames,setPrayerNames] = useState([] as string[])
     const [nextPrayer,setNextPrayer] = useState(0)
+    const [input,setInput] = useState(false)
+    const [currentPrayer,setCurrentPrayer] = useState('')
     const [isloading,setIsloading] = useState(true)
+    const [value, setValue] = useState('' as string)
+
+
+    const options = useMemo(() => countryList().getData(), [])
+
     useEffect(()=>{
       const PrayerDataFunc = async () => {  
-        const response = await axios.get('http://api.aladhan.com/v1/calendarByCity/2023/10?city=Cairo&country=Egypt&method=2')
+        const response = await axios.get(`http://api.aladhan.com/v1/calendarByCity/2023/10?city=Cairo&country=${value}&method=2`)
 
-        setData(response.data.data[0].timings)
         let PrayersNames = []
         let PrayersTimes = []
 for (const key in response.data.data[0].timings){
@@ -28,49 +33,23 @@ if(key==='Fajr' ||key==="Sunrise" || key==='Dhuhr' || key==='Asr' || key==="Magh
     setPrayerTiming(PrayersTimes)
     setPrayerNames(PrayersNames)
     
-    console.log(prayerNames)
+   
 }
 
 };
 
-console.log(prayerNames)
-NextPrayerFunc(prayerTiming)
+NextPrayerFunc(PrayersTimes)
+console.log(nextPrayer)
 setIsloading(false)
       }
       PrayerDataFunc()
-      
-    },[])
+      console.log(value)
+    },[value])
 
-
-    // const CountdownFunc = (time:number) =>{
-    //     setMinutes(nextPrayer)
-    //     let newMinutes=minutes
-    // if(minutes>=60){
-    
-    //     for(let i=0; i<minutes; i+60){
-    //             setHours(prev => prev+1)
-    //             newMinutes= newMinutes-60
-    //     }
-    //     setMinutes(newMinutes)
-    
-    // }
-    // if(minutes>=1){
-    //     for(let i=0; i<minutes; i+1){
-    //         setSeconds(prev => prev+60)
-    //         newMinutes= newMinutes-1
-    // }
-    // setMinutes(newMinutes)
-    // }
-    // console.log(hours,minutes,seconds)
-    
-    //     // const countDown = setInterval(()=>{
-    //     //     setTimer(prev=>prev-1)
-    
-    //     // },1000)
-    
-    
-    // }
-
+const changeHandler = (e:any) => {
+        setValue(e.label)
+        setInput(false)
+      }
 
 const NextPrayerFunc =(prayerTiming:any) =>{
     //Function that determines when is the next closest Prayer
@@ -110,7 +89,7 @@ const NextPrayerFunc =(prayerTiming:any) =>{
       TimeRemaining = (TotalinMinutes-TotalinMinutesNow) *60000
       
     setNextPrayer(TimeRemaining)
-    console.log(nextPrayer)
+    setCurrentPrayer(ComparisonArray[0])
     console.log(now)
 }
 
@@ -133,11 +112,14 @@ const NextPrayerFunc =(prayerTiming:any) =>{
         </div>
         <section className="PrayerTimes-Times">
             <div className="PrayerTimes-Location">
-                <p>Current Location: Cairo, Egypt</p>
-                <LiaExchangeAltSolid />
+                <div>
+                <p>Current Location: {value===""?'Egypt':value}</p>
+                <div onClick={()=>setInput(prev=>!prev)}><LiaExchangeAltSolid /></div>
+                </div>
+                {input && <Select className="select-Countries" options={options} onChange={(e)=>changeHandler(e)} />}
             </div>
             {prayerTiming.map((time,index)=>{
-                return <div key={time} className="PrayerTimes-Prayer">
+                return <div key={time} className={currentPrayer==time?"PrayerTimes-Prayer active":"PrayerTimes-Prayer"}>
                 <p>{prayerNames[index]}</p><p>{time.startsWith('0')?`${time.substring(1)} AM`:time.substring(0,2)==='12'? `${time} PM`:`${Number(time.slice(0,2))-12}${time.substring(2)} PM`}</p>
                 </div>
             })}

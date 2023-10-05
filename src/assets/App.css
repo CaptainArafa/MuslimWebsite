@@ -177,6 +177,10 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     transition: 200ms ease-in-out;
 }
+.PrayerTimes-Prayer.active{
+    background-color: rgb(154, 168, 232);
+    color: #25336d;
+}
 .PrayerTimes-Prayer:hover{
     background-color: #25336d;
     color: #c6ceee;
@@ -191,15 +195,29 @@
     color:#c6ceee;
     font-size: 1.2rem;
     padding: 0.5em 2em;
+   
+    margin-bottom: 0.5em;
+}
+.PrayerTimes-Location div{
+    padding-left: 0.3em;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5em;
+}
+.PrayerTimes-Location input{
+    font-size: 1rem;
+    padding: 0.3em;
+    width: 100%;
+    border-radius: 25px;
+    margin: 0.5em 0.5em 0.5em 0em;
 }
 .PrayerTimes-Location svg{
     cursor: pointer;
 }
 .BackgroundImg{
     background-color: white;
+}
+.select-Countries{
+    padding: ;
 }
 /*Prayer Times */
