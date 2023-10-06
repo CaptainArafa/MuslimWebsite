@@ -7,11 +7,19 @@ import Countdown from 'react-countdown';
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
 
+type Prayer = {
+    time: string[],
+    name:string[]
+
+}
+type nextPrayer = {
+    time: number,
+    name: string
+}
 export const PrayerTimes = () => {
     
-    const [prayerTiming,setPrayerTiming] = useState([] as string[])
-    const [prayerNames,setPrayerNames] = useState([] as string[])
-    const [nextPrayer,setNextPrayer] = useState(0)
+    const [prayer,setPrayer] = useState<Prayer>()
+    const [nextPrayer,setNextPrayer] = useState<nextPrayer>()
     const [input,setInput] = useState(false)
     const [currentPrayer,setCurrentPrayer] = useState('')
     const [isloading,setIsloading] = useState(true)
@@ -30,15 +38,14 @@ for (const key in response.data.data[0].timings){
 if(key==='Fajr' ||key==="Sunrise" || key==='Dhuhr' || key==='Asr' || key==="Maghrib" || key==="Isha"){
     PrayersTimes.push(response.data.data[0].timings[key].split(' ')[0])
     PrayersNames.push(key)
-    setPrayerTiming(PrayersTimes)
-    setPrayerNames(PrayersNames)
+    setPrayer({time:PrayersTimes,name:PrayersNames})
     
    
 }
 
 };
 
-NextPrayerFunc(PrayersTimes)
+NextPrayerFunc({time:PrayersTimes,name:PrayersNames})
 console.log(nextPrayer)
 setIsloading(false)
       }
@@ -51,11 +58,15 @@ const changeHandler = (e:any) => {
         setInput(false)
       }
 
-const NextPrayerFunc =(prayerTiming:any) =>{
+const NextPrayerFunc =({time,name}:Prayer) =>{
     //Function that determines when is the next closest Prayer
+    let Prayer = {time,name}
     let TimeRemaining= 0
     let now = new Date()
     let Hours = 0
+    let index = 0
+    let indexNumbers:number[]= []
+    let PrayerName = ''
     let Minutes = 0
     let TotalinMinutes = 0
     let TotalinMinutesNow = 0
@@ -63,7 +74,7 @@ const NextPrayerFunc =(prayerTiming:any) =>{
     //Loops over the prayer times in a string format ex: 16:47
     //Then turns the first two characters into numbers and stores them as Hours
     // and does the same thing with minutes
-  prayerTiming.map((time:string)=>{
+  Prayer.time.map((time:string, index)=>{
       Hours = Number(time.slice(0,2))
       Minutes = Number(time.slice(3,4))
         TotalinMinutes = (Hours * 60) + Minutes
@@ -72,7 +83,7 @@ const NextPrayerFunc =(prayerTiming:any) =>{
 // if it is positive it means the prayer time still hasn't come then pushes it into the array
         if(TotalinMinutes-TotalinMinutesNow > 0){
             ComparisonArray.push(time)
-            
+            indexNumbers.push(index)
         }
 
 
@@ -87,9 +98,38 @@ const NextPrayerFunc =(prayerTiming:any) =>{
       TotalinMinutes = (Hours * 60) + Minutes
       //converting Time remaining to Milliseconds
       TimeRemaining = (TotalinMinutes-TotalinMinutesNow) *60000
+        
       
-    setNextPrayer(TimeRemaining)
-    setCurrentPrayer(ComparisonArray[0])
+      //Getting name in the index of the first index in the indexNumbers Array 
+
+      index= indexNumbers[0]
+      PrayerName = Prayer.name[index]
+
+    setNextPrayer({name:PrayerName,time:TimeRemaining})
+
+
+
+    switch(PrayerName){
+        case 'Fajr':
+            setCurrentPrayer('Isha')
+        break;
+        case 'Sunrise':
+            setCurrentPrayer('Fajr')
+        break;
+        case 'Dhuhr':
+            setCurrentPrayer('Sunrise')
+        break;
+        case 'Asr':
+            setCurrentPrayer('Dhuhr')
+        break;
+        case 'Maghrib':
+            setCurrentPrayer('Asr')
+        break;
+        case 'Isha':
+            setCurrentPrayer('Maghrib')
+        break;
+    }
+
     console.log(now)
 }
 
@@ -104,8 +144,8 @@ const NextPrayerFunc =(prayerTiming:any) =>{
     <main>
     <div className="PrayerTimesBackground">
             <div className="PrayerTimesBackground-Timing">
-                <h2>Next Prayer Maghrib</h2>
-                <p><Countdown zeroPadTime={0} autoStart={true} date={ Date.now()+nextPrayer }/></p>
+                <h2>Next Prayer {nextPrayer?.name}</h2>
+                <p><Countdown zeroPadTime={0} autoStart={true} date={ Date.now()+nextPrayer?.time }/></p>
 
             </div>
             <img src={masjid} alt="Masjid Background" />
@@ -118,9 +158,9 @@ const NextPrayerFunc =(prayerTiming:any) =>{
                 </div>
                 {input && <Select className="select-Countries" options={options} onChange={(e)=>changeHandler(e)} />}
             </div>
-            {prayerTiming.map((time,index)=>{
-                return <div key={time} className={currentPrayer==time?"PrayerTimes-Prayer active":"PrayerTimes-Prayer"}>
-                <p>{prayerNames[index]}</p><p>{time.startsWith('0')?`${time.substring(1)} AM`:time.substring(0,2)==='12'? `${time} PM`:`${Number(time.slice(0,2))-12}${time.substring(2)} PM`}</p>
+            {prayer?.time.map((time,index)=>{
+                return <div key={time} className={currentPrayer===prayer.name[index]?"PrayerTimes-Prayer active":"PrayerTimes-Prayer"}>
+                <p>{prayer.name[index]}</p><p>{time.startsWith('0')?`${time.substring(1)} AM`:time.substring(0,2)==='12'? `${time} PM`:`${Number(time.slice(0,2))-12}${time.substring(2)} PM`}</p>
                 </div>
             })}
         
