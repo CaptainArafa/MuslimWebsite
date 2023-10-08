@@ -24,6 +24,9 @@
     align-items: center;
     justify-content: space-evenly;
 }
+.Nav-Container.Quran{
+    background-color: #25336d;
+}
 .Nav-Logo img{
     width:4em;
 }
@@ -221,3 +224,28 @@
     padding: ;
 }
 /*Prayer Times */
+/* Quran Home Page */
+.Surahs-Search-Bar{
+    text-align: center;
+    position: relative;
+    width: 35%;
+    margin: 0 auto;
+
+}
+.Surahs-Search-Bar input{
+    border-radius: 25px;
+    width: 100%;
+    font-size: 1.1rem;
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    border: none;
+    box-shadow: 2px 7px 15px -4px rgba(0,0,0,0.75);
+}
+.Surahs-Search-Bar svg{
+    font-size: 1.5em;
+    position: absolute;
+    right: 2%;
+    border-radius: 25px;
+    bottom: 17%;
+}
+/* Quran Home Page */

@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 export const Navbar = () => {
   return (
     <>
-    <nav className="Nav-Container">
+    <nav className={location.pathname==='/quran'?"Nav-Container Quran":"Nav-Container"}>
         <section className='Nav-Logo'>
             <img src={logo} alt="Website Logo" />
         </section>
