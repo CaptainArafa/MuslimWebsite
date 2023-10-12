@@ -239,7 +239,7 @@
     margin-top: 1em;
     padding: 0.5em 1em;
     border: none;
-    box-shadow: 2px 7px 15px -4px rgba(0,0,0,0.75);
+    box-shadow: 1px 0px 5px 1px rgba(0,0,0,0.75);
 }
 .Surahs-Search-Bar svg{
     font-size: 1.5em;
@@ -247,5 +247,20 @@
     right: 2%;
     border-radius: 25px;
     bottom: 17%;
+}
+.Quran-Surahs-Container{
+    display: grid;
+    gap: 3em;
+    margin: 2em;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+}
+.SurahCard-Container{
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    justify-content: center;
+    padding: 2em 1em;
 }
 /* Quran Home Page */
