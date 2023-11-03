@@ -18,7 +18,7 @@ export const HolyQuranPage = () => {
     getSurahs()
   },[])
   return (
-    <>
+    <div className="QuranPage-Container">
     <header>
         <Navbar/>
         <section className="Surahs-Search-Bar">
@@ -29,10 +29,10 @@ export const HolyQuranPage = () => {
     <body>
       <section className="Quran-Surahs-Container">
         {surahs.map((surah)=>{
-          return <SurahCard key={surah.number} nameEn={surah.name.transliteration.en} nameAr={surah.name.short} />
+          return <SurahCard key={surah.number} id={surah.number} nameEn={surah.name.transliteration.en} nameAr={surah.name.short} />
         })}
       </section>
     </body>
-    </>
+    </div>
   ) 
 }

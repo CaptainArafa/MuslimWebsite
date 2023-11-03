@@ -25,7 +25,7 @@
     justify-content: space-evenly;
 }
 .Nav-Container.Quran{
-    background-color: #25336d;
+    background-color: #6168ae;
 }
 .Nav-Logo img{
     width:4em;
@@ -220,11 +220,12 @@
 .BackgroundImg{
     background-color: white;
 }
-.select-Countries{
-    padding: ;
-}
+
 /*Prayer Times */
 /* Quran Home Page */
+.QuranPage-Container{
+    background-color: #dde5f5;
+}
 .Surahs-Search-Bar{
     text-align: center;
     position: relative;
@@ -239,7 +240,7 @@
     margin-top: 1em;
     padding: 0.5em 1em;
     border: none;
-    box-shadow: 1px 0px 5px 1px rgba(0,0,0,0.75);
+    
 }
 .Surahs-Search-Bar svg{
     font-size: 1.5em;
@@ -251,16 +252,42 @@
 .Quran-Surahs-Container{
     display: grid;
     gap: 3em;
-    margin: 2em;
+    margin: 4em 8em 8em 8em;
     grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
 }
 .SurahCard-Container{
-    border: 3px solid black;
+    box-shadow: 1px 0px 5px 1px rgba(0,0,0,0.75);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     border-radius: 25px;
-    justify-content: center;
-    padding: 2em 1em;
+    justify-content: space-between;
+    padding: 1em 2em;
+    color: white;
+    cursor: pointer;
+    background-color: #4e529e;
+    transition: 200ms ease-in-out;
 }
+.SurahCard-Container:hover{
+    box-shadow: 1px 0px 5px 1px #25336d;
+    transform: scale(1.05);
+background-color: white;
+color:#4e529e;
+}
+.SurahCard-Container
+.SurahCard-Container .Lower{
+    display: grid;
+    place-content:center;
+    padding: 0.8em;
+    border-radius: 50%;
+}
+
+.SurahCard-Container .Upper{
+    border-bottom: 1px solid white;
+    margin-bottom: 1.5em;
+    text-align: center;
+    
+    font-size: 1rem;
+}
+
 /* Quran Home Page */
